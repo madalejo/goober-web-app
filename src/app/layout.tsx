@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import '@fontsource/roboto'
-//import "./globals.css"
+import "./globals.css"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
+import { CssBaseline } from "@mui/material"
 
 export const metadata: Metadata = {
   title: "Goober",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <CssBaseline />
         <Grid container>
           <Grid xs={12}>
             {children}
