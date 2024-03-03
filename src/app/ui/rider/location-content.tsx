@@ -7,21 +7,17 @@ import CurrentLocation from "@/app/ui/rider/current-location"
 
 const LocationContent: FC = (): JSX.Element => {
 
-    const handleLocation = async () => {
-        const response = await currentLocation()
-        console.log(response.formatted_address)
-    }
-
     return (
         <Box
-            component="div"
-            sx={{ flexGrow: 1, alignSelf: 'flex-end' }}
+            sx={{ 
+                flexGrow: 1, 
+                display: "flex",
+                alignSelf: "flex-end",
+                flexDirection: "column",
+                pt: 4,
+                rowGap: 1
+            }}
         >
-            <Button
-                onClick={handleLocation}
-            >
-                current location                                
-            </Button>
             <CurrentLocation />
             <AutoComplete />
         </Box>

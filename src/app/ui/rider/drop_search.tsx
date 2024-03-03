@@ -75,6 +75,7 @@ const DropSearch = ({ children } : { children: ReactNode }): JSX.Element => {
                         >
                             <CloseIcon />
                         </IconButton>
+                        
                         { children }
                     </Toolbar>
                 </AppBar>
