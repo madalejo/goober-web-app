@@ -1,14 +1,33 @@
 'use server'
 import { supabase } from "@/app/utils/supabase"
 
+/*
+* Google Maps
+*/
 export const queryAutocomplete = async (input: string) => {
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input=${input}&key=${process.env.GMAPS_TOKEN!}`
+    const apiUrl = `${process.env.GMAPS_BASEURL}/place/queryautocomplete/json?input=${input}&key=${process.env.GMAPS_TOKEN!}`
     try {
         const response = await fetch(apiUrl)
         const data = await response.json()
-        return data
+        const formattedData = data.predictions.map((location: any) => ({
+            label: location.description,
+            value: location.place_id
+        }))
+        return formattedData
     } catch (error) {
         console.error('Error fetching place suggestion: ', error)
+        return []
+    }
+}
+
+export const currentLocation = async () => {
+    const apiUrl = `${process.env.GMAPS_BASEURL}/geocode/json?latlng=40.750562,-73.989296&key=${process.env.GMAPS_TOKEN!}`
+    try {
+        const response = await fetch(apiUrl)
+        const data = await response.json()
+        return data.results[0]
+    } catch (error) {
+        console.error('Error fetching location: ', error)
         return []
     }
 }

@@ -11,11 +11,7 @@ const AutoComplete: FC = (): JSX.Element => {
 
     const changeHandler = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const response = await queryAutocomplete(e.target.value)
-        const formatedResponse = response.predictions.map((location: any) => ({
-            label: location.description,
-            value: location.place_id
-        }))
-        setOption(formatedResponse)
+        setOption(response)
     }
 
     return (
@@ -32,11 +28,14 @@ const AutoComplete: FC = (): JSX.Element => {
                     />
                 )
             }
-            renderOption={(props, option: any) => (
+            renderOption={(props: any, option: any) => (
                 <li {...props}>
                     <Grid
                         container
                         alignItems="center"
+                        sx={{
+                            my: 2
+                        }}
                     >
                         <Grid 
                             sx={{

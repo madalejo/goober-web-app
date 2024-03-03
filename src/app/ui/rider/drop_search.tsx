@@ -1,12 +1,10 @@
-import { CSSProperties, FC, JSX, ReactElement, Ref, forwardRef, useState } from "react"
+'use client'
+import { CSSProperties, FC, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
 
-import { AppBar, Button, Dialog, IconButton, Slide, Toolbar, Box } from "@mui/material"
+import { AppBar, Button, Dialog, IconButton, Slide, Toolbar } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from "@mui/material/transitions"
-
-import AutoComplete from "@/app/ui/rider/auto-complete"
-
 
 const btnStyleOvd: CSSProperties = { // Button Style Override
     borderRadius: 8,
@@ -26,7 +24,7 @@ const Transition = forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />
 })
 
-const DropSearch: FC = (): JSX.Element => {
+const DropSearch = ({ children } : { children: ReactNode }): JSX.Element => {
     const [open, setOpen] = useState<boolean>(false)
 
     const handleClickOpen = (): void => {
@@ -77,12 +75,7 @@ const DropSearch: FC = (): JSX.Element => {
                         >
                             <CloseIcon />
                         </IconButton>
-                        <Box
-                            component="div"
-                            sx={{ flexGrow: 1, alignSelf: 'flex-end' }}
-                        >
-                            <AutoComplete />
-                        </Box>
+                        { children }
                     </Toolbar>
                 </AppBar>
             </Dialog>

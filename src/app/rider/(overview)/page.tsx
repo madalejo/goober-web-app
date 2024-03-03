@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, FC, JSX } from "react"
+import { ChangeEvent, FC, JSX, Suspense } from "react"
 
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import { InputAdornment, TextField, Button } from "@mui/material"
@@ -7,6 +7,8 @@ import SearchIcon from '@mui/icons-material/Search'
 import { queryAutocomplete } from "@/app/lib/actions"
 import DropSearch from "@/app/ui/rider/drop_search"
 import LastRides from "@/app/ui/rider/last-ride-list"
+
+import LocationContent from "@/app/ui/rider/location-content"
 
 const Page: FC = (): JSX.Element => {
 
@@ -22,7 +24,11 @@ const Page: FC = (): JSX.Element => {
             spacing={4}
         >
             <Grid xs={12}>
-                <DropSearch />
+                <Suspense fallback={<>Loading...</>}>
+                    <DropSearch>
+                        <LocationContent />
+                    </DropSearch>
+                </Suspense>
             </Grid>
             <Grid xs={12}>
                 <LastRides />
