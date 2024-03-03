@@ -6,6 +6,7 @@ import { InputAdornment, TextField, Button } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search'
 import { queryAutocomplete } from "@/app/lib/actions"
 import DropSearch from "@/app/ui/rider/drop_search"
+import LastRides from "@/app/ui/rider/last-ride-list"
 
 const Page: FC = (): JSX.Element => {
 
@@ -16,8 +17,16 @@ const Page: FC = (): JSX.Element => {
     }
 
     return (
-        <>
-            <DropSearch />
+        <Grid
+            container
+            spacing={4}
+        >
+            <Grid xs={12}>
+                <DropSearch />
+            </Grid>
+            <Grid xs={12}>
+                <LastRides />
+            </Grid>
             <TextField 
                 label="Where to?"
                 variant="filled"
@@ -30,7 +39,7 @@ const Page: FC = (): JSX.Element => {
                     </InputAdornment>
                 }}
             />
-        </>
+        </Grid>
     )
 }
 

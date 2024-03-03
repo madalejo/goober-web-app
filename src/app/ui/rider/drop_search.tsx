@@ -5,6 +5,8 @@ import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from "@mui/material/transitions"
 
+import AutoComplete from "@/app/ui/rider/auto-complete"
+
 
 const btnStyleOvd: CSSProperties = { // Button Style Override
     borderRadius: 8,
@@ -79,7 +81,7 @@ const DropSearch: FC = (): JSX.Element => {
                             component="div"
                             sx={{ flexGrow: 1, alignSelf: 'flex-end' }}
                         >
-                            MUI
+                            <AutoComplete />
                         </Box>
                     </Toolbar>
                 </AppBar>
