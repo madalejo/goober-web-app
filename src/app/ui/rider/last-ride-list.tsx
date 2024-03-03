@@ -17,7 +17,6 @@ const LastRides:FC = (): JSX.Element => {
                 Last Rides
             </Typography>
             <Button
-                onClick={async () => pullData()}
             >
                 Pull
             </Button>

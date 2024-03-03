@@ -1,4 +1,5 @@
-import { ChangeEvent, FC, JSX, useState } from "react"
+'use server'
+import { ChangeEvent, FC, JSX } from "react"
 
 import { TextField, Autocomplete, Typography } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
@@ -6,26 +7,31 @@ import PlaceIcon from '@mui/icons-material/Place'
 
 import { queryAutocomplete } from "@/app/lib/actions"
 
-const AutoComplete: FC = (): JSX.Element => {
-    const [option, setOption] = useState<string[]>([])
+import Search from "@/app/ui/rider/search"
+
+const AutoComplete: FC = async ({
+    searchParams
+}: {
+    searchParams?: {
+        query?: string
+    }
+}): Promise<JSX.Element> => {
+    const query = searchParams?.query || '';
+    //const [option, setOption] = useState<string[]>([])
+    const options = await queryAutocomplete(query)
 
     const changeHandler = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const response = await queryAutocomplete(e.target.value)
-        setOption(response)
+        //setOption(response)
     }
 
     return (
         <Autocomplete
             disablePortal
-            options={option}
+            options={options}
             renderInput={
                 (params) => (
-                    <TextField 
-                        {...params} 
-                        label="Where to?" 
-                        fullWidth
-                        onChange={e => changeHandler(e)}
-                    />
+                    <Search />
                 )
             }
             renderOption={(props: any, option: any) => (

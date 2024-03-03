@@ -1,9 +1,9 @@
 import { FC, JSX } from "react"
-import { Box, Button } from "@mui/material"
+import { Box } from "@mui/material"
 
 import AutoComplete from "@/app/ui/rider/auto-complete"
-import { currentLocation } from "@/app/lib/actions"
 import CurrentLocation from "@/app/ui/rider/current-location"
+import Search from "@/app/ui/rider/search"
 
 const LocationContent: FC = (): JSX.Element => {
 
@@ -18,8 +18,8 @@ const LocationContent: FC = (): JSX.Element => {
                 rowGap: 1
             }}
         >
-            <CurrentLocation />
-            <AutoComplete />
+            {/* <CurrentLocation /> */}
+            <Search />
         </Box>
     )
 }

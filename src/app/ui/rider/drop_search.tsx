@@ -1,5 +1,5 @@
 'use client'
-import { CSSProperties, FC, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
+import { CSSProperties, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
 
 import { AppBar, Button, Dialog, IconButton, Slide, Toolbar } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search'
