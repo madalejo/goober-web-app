@@ -1,8 +1,9 @@
 'use client'
+import { ReactNode, JSX } from "react"
 import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import { TextField } from "@mui/material"
 
-const Search = () => {
+const Search = (): JSX.Element => {
     const searchParams = useSearchParams()
     const pathName = usePathname()
     const { replace } = useRouter()

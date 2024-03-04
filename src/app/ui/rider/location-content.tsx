@@ -19,7 +19,7 @@ const LocationContent: FC = (): JSX.Element => {
             }}
         >
             {/* <CurrentLocation /> */}
-            <Search />
+            {/* <Search /> */}
         </Box>
     )
 }
