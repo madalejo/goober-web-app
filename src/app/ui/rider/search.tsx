@@ -20,7 +20,7 @@ const Search = (): JSX.Element => {
 
     return (
         <TextField 
-            label="Where to?" 
+            label="Drop off" 
             fullWidth
             onChange={e => handleSearch(e.target.value)}
             defaultValue={searchParams.get("query")?.toString()}

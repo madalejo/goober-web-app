@@ -1,7 +1,7 @@
 'use client'
 import { CSSProperties, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
 
-import { AppBar, Box, Button, Dialog, DialogContent, IconButton, Slide, TextField, Toolbar, styled } from "@mui/material"
+import { AppBar, Box, Button, Dialog, DialogContent, IconButton, Slide, TextField, Toolbar, Typography, styled } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from "@mui/material/transitions"
@@ -97,9 +97,12 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                                     flexDirection: "column"
                                 }}
                             >
+                                <Typography variant="h6" color="GrayText">
+                                    Where to?
+                                </Typography>
                                 <TextField 
                                     disabled
-                                    label="Current Location"
+                                    label="Pickup"
                                     value="Home"
                                 />
                                 <Search />
