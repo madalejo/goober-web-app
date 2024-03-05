@@ -1,7 +1,7 @@
 'use client'
 import { CSSProperties, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
 
-import { AppBar, Box, Button, Dialog, DialogContent, IconButton, Slide, Toolbar, styled } from "@mui/material"
+import { AppBar, Box, Button, Dialog, DialogContent, IconButton, Slide, TextField, Toolbar, styled } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from "@mui/material/transitions"
@@ -36,7 +36,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
     paddingBottom: theme.spacing(2),
     // Override media queries injected by theme.mixins.toolbar
     '@media all': {
-        minHeigh: 128
+        minHeight: 220
     },
 }))
 
@@ -91,9 +91,17 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                                 component="div"
                                 sx={{
                                     flexGrow: 1,
-                                    alignSelf: "flex-end"
+                                    alignSelf: "flex-end",
+                                    display: "flex",
+                                    rowGap: 2,
+                                    flexDirection: "column"
                                 }}
                             >
+                                <TextField 
+                                    disabled
+                                    label="Current Location"
+                                    value="Home"
+                                />
                                 <Search />
                             </Box>
                         </StyledToolBar>

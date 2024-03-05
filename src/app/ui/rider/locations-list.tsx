@@ -9,13 +9,17 @@ interface LocationListProps {
     query: string
 }
 
-export const LocationsList = async ({ query }: LocationListProps): Promise<JSX.Element> => {
-    const options = await queryAutocomplete(query)
+interface OptionsProps {
+    label: string
+    value: string
+}
 
-    console.log(options)
+export const LocationsList = async ({ query }: LocationListProps): Promise<JSX.Element> => {
+    const options: OptionsProps[] = await queryAutocomplete(query)
+
     return (
         <List>
-            { options.map(( option: any, idx: number) => (
+            { options.map(( option: OptionsProps, idx: number) => (
             <ListItemButton key={idx}>
                 <ListItemIcon>
                     <PlaceIcon />

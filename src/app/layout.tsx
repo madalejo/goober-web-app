@@ -18,7 +18,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CssBaseline />
-        <Grid container>
+        <Grid 
+          container
+          sx={{
+            height: '100vh'
+          }}
+        >
           <Grid xs={12}>
             {children}
           </Grid>
