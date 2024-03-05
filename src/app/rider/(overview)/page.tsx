@@ -9,6 +9,7 @@ import LocationContent from "@/app/ui/rider/location-content"
 import Search from "@/app/ui/rider/search"
 import AutoComplete from "@/app/ui/rider/auto-complete"
 import { LocationsList } from "@/app/ui/rider/locations-list"
+import { LocationListSkeleton } from "@/app/ui/skeletons"
 
 const Page: FC = ({
     searchParams
@@ -32,7 +33,9 @@ const Page: FC = ({
         >
             <Grid xs={12}>
                 <DialogSearch>
-                    <LocationsList query={query} />
+                    <Suspense key={query} fallback={<LocationListSkeleton />}>
+                        <LocationsList query={query} />
+                    </Suspense>
                 </DialogSearch>
             </Grid>
             <Grid xs={12}>
