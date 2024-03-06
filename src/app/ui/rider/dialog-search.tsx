@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from "@mui/material/transitions"
 
 import Search from "@/app/ui/rider/search"
+import GMap from "@/app/ui/GMap"
 
 interface DialogSearchProps {
     children: ReactNode
@@ -112,6 +113,7 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                     <DialogContent>
                         <>
                             { children }
+                            <GMap />
                         </>
                     </DialogContent>
                 </Box>

@@ -1,9 +1,9 @@
 import { JSX } from "react"
 
-import { List, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material"
-import PlaceIcon from '@mui/icons-material/Place'
+import { List } from "@mui/material"
 
 import { queryAutocomplete } from "@/app/lib/actions"
+import ListButton from "@/app/ui/rider/list-button"
 
 interface LocationListProps {
     query: string
@@ -20,17 +20,10 @@ export const LocationsList = async ({ query }: LocationListProps): Promise<JSX.E
     return (
         <List>
             { options.map(( option: OptionsProps, idx: number) => (
-            <ListItemButton key={idx}>
-                <ListItemIcon>
-                    <PlaceIcon />
-                </ListItemIcon>
-                <ListItemText 
-                    primary={option.label} 
-                    sx={{
-                        color: "black"
-                    }}
-                />
-            </ListItemButton>
+            <ListButton 
+                key={idx} 
+                option={option}
+            />
             ))}
         </List>
     )
