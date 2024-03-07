@@ -16,6 +16,7 @@ const NavBar: FC = (): JSX.Element => {
         >
             <BottomNavigation
                 showLabels
+                value={0}
             >
                 {
                     navObj.map((value, idx) => (
@@ -23,6 +24,7 @@ const NavBar: FC = (): JSX.Element => {
                             key={idx}
                             label={value.label} 
                             icon={<value.icon />}
+                            disabled
                         />
                     ))
                 }
