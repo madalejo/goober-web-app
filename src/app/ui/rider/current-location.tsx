@@ -7,8 +7,8 @@ const CurrentLocation: FC = (): JSX.Element => {
     const [place, setPlace] = useState<string>('Loading...')
 
     const getLocation = async () => {
-        const response = await currentLocation()
-        setPlace(response.formatted_address)
+        //const response = await currentLocation()
+        //setPlace(response.formatted_address)
     }
 
     useEffect(() => {

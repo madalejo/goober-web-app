@@ -1,13 +1,16 @@
 'use client'
 import { CSSProperties, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
+import { useSearchParams } from "next/navigation"
 
-import { AppBar, Box, Button, Dialog, DialogContent, IconButton, Slide, TextField, Toolbar, Typography, styled } from "@mui/material"
+import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, IconButton, Slide, Toolbar, Typography, styled } from "@mui/material"
+import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from "@mui/material/transitions"
 
 import Search from "@/app/ui/rider/search"
 import GMap from "@/app/ui/GMap"
+import UserLocation from "@/app/ui/rider/user-location"
 
 interface DialogSearchProps {
     children: ReactNode
@@ -43,6 +46,8 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 
 const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
     const [open, setOpen] = useState<boolean>(false)
+    const searchParams = useSearchParams()
+    const params = new URLSearchParams(searchParams)
 
     const handleClickOpen = (): void => {
         setOpen(true)
@@ -78,7 +83,7 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                             backgroundColor: "white"
                         }}
                     >
-                        <StyledToolBar>
+                        <Toolbar>
                             <IconButton
                                 edge="start"
                                 onClick={handleClickClose}
@@ -88,34 +93,55 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                             >
                                 <CloseIcon />
                             </IconButton>
-                            <Box
-                                component="div"
-                                sx={{
-                                    flexGrow: 1,
-                                    alignSelf: "flex-end",
-                                    display: "flex",
-                                    rowGap: 2,
-                                    flexDirection: "column"
-                                }}
-                            >
-                                <Typography variant="h6" color="GrayText">
-                                    Where to?
-                                </Typography>
-                                <TextField 
-                                    disabled
-                                    label="Pickup"
-                                    value="Home"
-                                />
-                                <Search />
-                            </Box>
-                        </StyledToolBar>
+                            <Typography variant="h6" color="GrayText">
+                                Where to?
+                            </Typography>
+                        </Toolbar>
                     </AppBar>
                     <DialogContent>
-                        <>
-                            { children }
-                            <GMap />
-                        </>
+                        <Grid container justifyContent="center">
+                            <Grid xs={12} md={4}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        rowGap: 2,
+                                    }}
+                                >
+                                    <UserLocation />
+                                    <Search />
+                                    { !params.has("dropoff")  ? 
+                                        children 
+                                        : 
+                                        <GMap />
+                                    }
+                                </Box>
+                            </Grid>
+                        </Grid>
                     </DialogContent>
+                    <Grid 
+                        container 
+                        justifyContent="center" 
+                        position="fixed" 
+                        sx={{ 
+                            bottom: 0, 
+                            right: 0, 
+                            left: 0 
+                        }}
+                    >
+                        <Grid xs={12} md={4}>
+                            <DialogActions>
+                                <Button
+                                    disabled={!params.has("dropoff")}
+                                    variant="contained"
+                                    fullWidth
+                                    disableElevation
+                                >
+                                    Confirm Ride
+                                </Button>
+                            </DialogActions>
+                        </Grid>
+                    </Grid>
                 </Box>
             </Dialog>
         </>

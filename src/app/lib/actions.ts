@@ -20,8 +20,8 @@ export const queryAutocomplete = async (input: string) => {
     }
 }
 
-export const currentLocation = async () => {
-    const apiUrl = `${process.env.NEXT_PUBLIC_GMAPS_BASEURL}/geocode/json?latlng=40.750562,-73.989296&key=${process.env.NEXT_PUBLIC_GMAPS_TOKEN!}`
+export const currentLocation = async (geolocation: string) => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_GMAPS_BASEURL}/geocode/json?latlng=${geolocation}&key=${process.env.NEXT_PUBLIC_GMAPS_TOKEN!}`
     try {
         const response = await fetch(apiUrl)
         const data = await response.json()

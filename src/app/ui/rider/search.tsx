@@ -1,7 +1,10 @@
 'use client'
-import { ReactNode, JSX } from "react"
+
+import {  JSX } from "react"
 import { useSearchParams, usePathname, useRouter } from "next/navigation"
-import { TextField } from "@mui/material"
+
+import { IconButton, InputAdornment, TextField } from "@mui/material"
+import ClearIcon from '@mui/icons-material/Clear'
 
 const Search = (): JSX.Element => {
     const searchParams = useSearchParams()
@@ -18,12 +21,39 @@ const Search = (): JSX.Element => {
         replace(`${pathName}?${params.toString()}`)
     }
 
+    const handleClear = () => {
+        const params = new URLSearchParams(searchParams);
+      
+        // Check if "query" is present before deleting
+        if (params.has("query")) {
+          params.delete("query");
+        }
+      
+        // Check if "dropoff" is present before deleting
+        if (params.has("dropoff")) {
+          params.delete("dropoff");
+        }
+        replace(`${pathName}?${params.toString()}`);
+      }
+
     return (
         <TextField 
-            label="Drop off" 
+            label="Dropoff" 
             fullWidth
+            variant="filled"
             onChange={e => handleSearch(e.target.value)}
-            defaultValue={searchParams.get("query")?.toString()}
+            value={searchParams.get("query")?.toString() || ''}
+            InputProps={{
+                endAdornment: 
+                <InputAdornment position="end">
+                    <IconButton
+                        onClick={handleClear}
+                        edge="end"
+                    >
+                        <ClearIcon />
+                    </IconButton>
+                </InputAdornment>
+            }}
         />
     )
 }
