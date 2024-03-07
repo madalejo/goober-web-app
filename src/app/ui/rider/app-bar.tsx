@@ -1,5 +1,5 @@
 import { FC, JSX } from "react"
-import { AppBar as TopBar, Toolbar } from "@mui/material"
+import { AppBar as TopBar, Toolbar, Typography } from "@mui/material"
 
 const AppBar: FC = (): JSX.Element => {
     return (
@@ -8,7 +8,9 @@ const AppBar: FC = (): JSX.Element => {
             elevation={3}
         >
             <Toolbar>
-                App Bar
+                <Typography variant="h5">
+                    Goober App
+                </Typography>
             </Toolbar>
         </TopBar>
     )
