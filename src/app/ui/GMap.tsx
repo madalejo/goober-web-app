@@ -1,22 +1,9 @@
 import { useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
 
 import { APIProvider, Map, useMapsLibrary, useMap } from "@vis.gl/react-google-maps"
 import { Box, Card, CardContent, Typography } from "@mui/material"
 
-
-const calculateFare = (time: number, distance: number) => {
-    const base = 2.00
-    const minuteCharge = 0.20
-    const mileCharge = 1.50
-
-    const calcTimeCharge = minuteCharge * time
-    const calDistanceCharge = mileCharge * distance
-
-    const calcTotalFare = base + calcTimeCharge + calDistanceCharge
-
-    return calcTotalFare
-}
 
 const GMap = () => {
 
@@ -63,6 +50,24 @@ const Directions = () => {
     const leg = selected?.legs[0]
     const searchParams = useSearchParams()
     const params = new URLSearchParams(searchParams)
+    const pathName = usePathname()
+    const { replace } = useRouter()
+
+    const calculateFare = (time: number, distance: number) => {
+        const base = 2.00
+        const minuteCharge = 0.20
+        const mileCharge = 1.50
+    
+        const calcTimeCharge = minuteCharge * time
+        const calDistanceCharge = mileCharge * distance
+    
+        const calcTotalFare = base + calcTimeCharge + calDistanceCharge
+
+        params.set("total_fare", calcTotalFare.toString())
+        replace(`${pathName}?${params.toString()}`)
+    
+        return calcTotalFare
+    }
 
     useEffect(() => {
         if(!routesLibrary || !map) return

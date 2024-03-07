@@ -4,7 +4,7 @@ import { JSX, useEffect, useState } from "react"
 import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import { TextField } from "@mui/material"
 
-import { currentLocation } from "@/app/lib/actions"
+import { currentLocation, getRiders } from "@/app/lib/actions"
 
 interface PlaceProps {
     latlng: string
@@ -22,6 +22,8 @@ const UserLocation = (): JSX.Element => {
 
     const getLocation = async (geolocation: string) => {
         const response = await currentLocation(geolocation)
+        const rider = await getRiders()
+        
         setPlace({
             latlng: `${response.geometry.location.lat},${response.geometry.location.lng}`,
             address: response.formatted_address
@@ -29,8 +31,10 @@ const UserLocation = (): JSX.Element => {
         const params = new URLSearchParams(searchParams)
         if (response) {
             params.set("pickup", `${response.geometry.location.lat},${response.geometry.location.lng}`)
+            params.set("id", rider![0].rider_id)
         } else {
             params.delete("pickup")
+            params.delete("id")
         }
         replace(`${pathName}?${params.toString()}`)
     }

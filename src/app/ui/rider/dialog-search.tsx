@@ -2,7 +2,7 @@
 import { CSSProperties, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
-import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, IconButton, Slide, Toolbar, Typography, styled } from "@mui/material"
+import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, IconButton, Slide, Toolbar, Typography } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
@@ -11,6 +11,7 @@ import { TransitionProps } from "@mui/material/transitions"
 import Search from "@/app/ui/rider/search"
 import GMap from "@/app/ui/GMap"
 import UserLocation from "@/app/ui/rider/user-location"
+import { createRide } from "@/app/lib/actions"
 
 interface DialogSearchProps {
     children: ReactNode
@@ -34,16 +35,6 @@ const Transition = forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />
 })
 
-const StyledToolBar = styled(Toolbar)(({ theme }) => ({
-    alignItems: "flex-start",
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-    // Override media queries injected by theme.mixins.toolbar
-    '@media all': {
-        minHeight: 220
-    },
-}))
-
 const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
     const [open, setOpen] = useState<boolean>(false)
     const searchParams = useSearchParams()
@@ -55,6 +46,15 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
 
     const handleClickClose = (): void => {
         setOpen(false)
+    }
+
+    const handleConfirm = async (): Promise<void> => {
+        const response = await createRide({
+            pickup: params.get("pickup"),
+            dropoff: params.get("dropoff"),
+            rider_id: params.get("id"),
+            total_fare: parseInt(params.get("total_fare")!)
+        })
     }
 
     return (
@@ -136,6 +136,7 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                                     variant="contained"
                                     fullWidth
                                     disableElevation
+                                    onClick={() => handleConfirm()}
                                 >
                                     Confirm Ride
                                 </Button>

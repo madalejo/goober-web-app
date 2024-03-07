@@ -44,19 +44,34 @@ export const getLatLng = async (place_id: string) => {
     }
 }
 
+/**
+ * Supabase
+ */
+
+interface CreateRideProps {
+    pickup: string | null
+    dropoff: string | null
+    total_fare: number | null
+    rider_id: string | null
+}
+
 export const getRiders = async () => {
-    /* try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL!}/rest/v1/drivers?select=*`, {
-            headers: {
-                apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-            }
-        })
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.error('Error fetching data: ', error)
-        return []
-    } */
-    const { data, error } = await supabase.from('drivers').select()
+    const { data, error } = await supabase.from('riders').select()
     return data
+}
+
+export const createRide = async (payload: CreateRideProps) => {
+    const { data, error } = await supabase
+        .from('rides')
+        .insert([{
+            status: "Requested",
+            pickup_location: payload.pickup,
+            dropoff_location: payload.dropoff,
+            fee: payload.total_fare,
+            driver_fee: payload.total_fare! * ( 80 / 100 ),
+            co_fee: payload.total_fare! * ( 20 / 100 ),
+            rider_id: payload.rider_id
+        }])
+        .select()
+        return data
 }
