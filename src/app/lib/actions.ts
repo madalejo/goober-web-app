@@ -75,3 +75,12 @@ export const createRide = async (payload: CreateRideProps) => {
         .select()
         return data
 }
+
+export const getActiveRide = async () => {
+    const { data, error } = await supabase
+    .from('rides')
+    .select()
+    .eq('status', 'Requested')
+
+    return data
+}
