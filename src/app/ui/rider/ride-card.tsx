@@ -13,13 +13,9 @@ import CancelCurrentRide from "@/app/ui/rider/cancel-ride"
 import { supabase } from "@/app/utils/supabase"
 
 const RideCard = ({
-    activeRides,
-    pickup_location,
-    dropoff_location
+    activeRides
 }: {
     activeRides: any
-    pickup_location: any
-    dropoff_location: any
 }) => {
     const [rides, setRides] = useState<any>(activeRides)
 
@@ -88,10 +84,7 @@ const RideCard = ({
                                             />
                                             <Box>
                                                 <Typography variant="subtitle2">
-                                                    { pickup_location?.address_components[2].short_name }
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    { pickup_location?.formatted_address }
+                                                    { rides.pickup_address }
                                                 </Typography>
                                             </Box>
                                         </Box>
@@ -108,10 +101,7 @@ const RideCard = ({
                                             />
                                             <Box>
                                                 <Typography variant="subtitle2">
-                                                    { dropoff_location?.address_components[2].short_name }
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    { dropoff_location?.formatted_address }
+                                                    { rides.dropoff_address }
                                                 </Typography>
                                             </Box>
                                         </Box>
