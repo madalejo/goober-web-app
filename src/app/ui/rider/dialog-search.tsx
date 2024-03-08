@@ -2,7 +2,21 @@
 import { CSSProperties, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
-import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, IconButton, Slide, Toolbar, Typography, Fab } from "@mui/material"
+import { 
+    AppBar, 
+    Box, 
+    Button, 
+    Dialog, 
+    DialogActions, 
+    DialogContent, 
+    IconButton, 
+    Slide, 
+    Toolbar, 
+    Typography, 
+    CircularProgress, 
+    Snackbar, 
+    Alert 
+} from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
@@ -11,7 +25,7 @@ import { TransitionProps } from "@mui/material/transitions"
 import Search from "@/app/ui/rider/search"
 import GMap from "@/app/ui/GMap"
 import UserLocation from "@/app/ui/rider/user-location"
-import { createRide } from "@/app/lib/actions"
+import { createRide, getActiveRide } from "@/app/lib/actions"
 
 interface DialogSearchProps {
     children: ReactNode
@@ -37,15 +51,29 @@ const Transition = forwardRef(function Transition(
 
 const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
     const [open, setOpen] = useState<boolean>(false)
+    const [openAlert, setOpenAlert] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const searchParams = useSearchParams()
     const params = new URLSearchParams(searchParams)
 
-    const handleClickOpen = (): void => {
-        setOpen(true)
+    const handleClickOpen = async (): Promise<void> => {
+        setIsLoading(true)
+        const response: any = await getActiveRide()
+        if (response[0].ride_id) {
+            console.log('running trip')
+            setOpenAlert(true)
+        } else {
+            setOpen(true)
+        }
+        setIsLoading(false)
     }
 
     const handleClickClose = (): void => {
         setOpen(false)
+    }
+
+    const handleCloseAlert = (): void => {
+        setOpenAlert(false)
     }
 
     const handleConfirm = async (): Promise<void> => {
@@ -67,8 +95,9 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                 }
                 sx={btnStyleOvd}
                 onClick={handleClickOpen}
+                disabled={isLoading}
             >
-                Where to?
+                { isLoading ? <CircularProgress size={24} /> : "Where to?" }
             </Button>
             <Dialog
                 fullScreen
@@ -145,6 +174,16 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
                     </Grid>
                 </Box>
             </Dialog>
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                <Alert
+                onClose={handleCloseAlert}
+                severity="error"
+                variant="filled"
+                sx={{ width: '100%' }}
+                >
+                    It seems that you have an active trip
+                </Alert>
+            </Snackbar>
         </>
     )
 }
