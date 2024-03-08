@@ -25,7 +25,7 @@ import { TransitionProps } from "@mui/material/transitions"
 import Search from "@/app/ui/rider/search"
 import GMap from "@/app/ui/GMap"
 import UserLocation from "@/app/ui/rider/user-location"
-import { createRide, getActiveRide } from "@/app/lib/actions"
+import { createRide, getActiveRide, currentLocation } from "@/app/lib/actions"
 
 interface DialogSearchProps {
     children: ReactNode
@@ -76,9 +76,18 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
     }
 
     const handleConfirm = async (): Promise<void> => {
+        
+        const selectedPickup = params.get("pickup")
+        const selectedDropoff = params.get("dropoff")
+
+        const pickup_location = await currentLocation(selectedPickup!)
+        const dropoff_location = await currentLocation(selectedDropoff!)
+
         const response = await createRide({
-            pickup: params.get("pickup"),
-            dropoff: params.get("dropoff"),
+            pickup: selectedPickup,
+            pickup_address: pickup_location.formatted_address,
+            dropoff: selectedDropoff,
+            dropoff_address: dropoff_location.formatted_address,
             rider_id: params.get("id"),
             total_fare: parseInt(params.get("total_fare")!)
         })

@@ -50,7 +50,9 @@ export const getLatLng = async (place_id: string) => {
 
 interface CreateRideProps {
     pickup: string | null
+    pickup_address: string | null
     dropoff: string | null
+    dropoff_address: string | null
     total_fare: number | null
     rider_id: string | null
 }
@@ -66,7 +68,9 @@ export const createRide = async (payload: CreateRideProps) => {
         .insert([{
             status: "Requested",
             pickup_location: payload.pickup,
+            pickup_address: payload.pickup_address,
             dropoff_location: payload.dropoff,
+            dropoff_address: payload.dropoff_address,
             fee: payload.total_fare,
             driver_fee: payload.total_fare! * ( 80 / 100 ),
             co_fee: payload.total_fare! * ( 20 / 100 ),
