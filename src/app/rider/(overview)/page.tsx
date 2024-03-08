@@ -5,7 +5,9 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import DialogSearch from "@/app/ui/rider/dialog-search"
 import LastRides from "@/app/ui/rider/last-ride-list"
 import { LocationsList } from "@/app/ui/rider/locations-list"
-import { LocationListSkeleton } from "@/app/ui/skeletons"
+import { LocationListSkeleton, CurrentRideSkeletong } from "@/app/ui/skeletons"
+import CurrentRideWrapper from "@/app/ui/rider/current-ride-wrapper"
+import CurrentRide from "@/app/ui/rider/current-ride"
 
 const Page: FC = ({
     searchParams
@@ -27,6 +29,13 @@ const Page: FC = ({
                         <LocationsList query={query} />
                     </Suspense>
                 </DialogSearch>
+            </Grid>
+            <Grid xs={12}>
+                <CurrentRideWrapper>
+                        <Suspense fallback={<CurrentRideSkeletong />}>
+                            <CurrentRide />
+                        </Suspense>
+                </CurrentRideWrapper>
             </Grid>
             <Grid xs={12}>
                 {/* <LastRides /> */}
