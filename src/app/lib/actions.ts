@@ -84,3 +84,15 @@ export const getActiveRide = async () => {
 
     return data
 }
+
+export const cancelRide = async (ride_id: string) => {
+    const { data, error } = await supabase
+    .from('rides')
+    .update({ status: 'Canceled' })
+    .eq('ride_id', ride_id)
+    .select()
+
+    console.log(error)
+
+    return data
+}
