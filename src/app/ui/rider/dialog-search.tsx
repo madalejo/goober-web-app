@@ -2,7 +2,7 @@
 import { CSSProperties, JSX, ReactElement, ReactNode, Ref, forwardRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
-import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, IconButton, Slide, Toolbar, Typography } from "@mui/material"
+import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, IconButton, Slide, Toolbar, Typography, Fab } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'

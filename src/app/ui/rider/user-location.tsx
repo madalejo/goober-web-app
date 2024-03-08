@@ -20,29 +20,48 @@ const UserLocation = (): JSX.Element => {
     const pathName = usePathname()
     const { replace } = useRouter()
 
-    const getLocation = async (geolocation: string) => {
-        const response = await currentLocation(geolocation)
+    const fallbackLocation: PlaceProps = {
+        latlng: "40.716046,-74.004859",
+        address: "325 Broadway, New York, NY 10007"
+    }
+
+    const getLocation = async (geolocation: string | null) => {
         const rider = await getRiders()
-        
-        setPlace({
-            latlng: `${response.geometry.location.lat},${response.geometry.location.lng}`,
-            address: response.formatted_address
-        })
-        const params = new URLSearchParams(searchParams)
-        if (response) {
-            params.set("pickup", `${response.geometry.location.lat},${response.geometry.location.lng}`)
-            params.set("id", rider![0].rider_id)
+        if (geolocation) {
+            const response = await currentLocation(geolocation)
+            
+            setPlace({
+                latlng: `${response.geometry.location.lat},${response.geometry.location.lng}`,
+                address: response.formatted_address
+            })
+            const params = new URLSearchParams(searchParams)
+            if (response) {
+                params.set("pickup", `${response.geometry.location.lat},${response.geometry.location.lng}`)
+                params.set("id", rider![0].rider_id)
+            } else {
+                params.delete("pickup")
+                params.delete("id")
+            }
+            replace(`${pathName}?${params.toString()}`)
         } else {
-            params.delete("pickup")
-            params.delete("id")
+            setPlace({
+                latlng: fallbackLocation.latlng,
+                address: fallbackLocation.address
+            })
+            const params = new URLSearchParams(searchParams)
+            params.set("pickup", fallbackLocation.latlng)
+            params.set("id", rider![0].rider_id)
+            replace(`${pathName}?${params.toString()}`)
         }
-        replace(`${pathName}?${params.toString()}`)
     }
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            getLocation(`${position.coords.latitude},${position.coords.longitude}`)
-        })
+        navigator.geolocation.getCurrentPosition(
+            (position) =>  getLocation(`${position.coords.latitude},${position.coords.longitude}`),
+            (error) => {
+                getLocation(null)
+            }
+        )
     }, [])
 
     return (
