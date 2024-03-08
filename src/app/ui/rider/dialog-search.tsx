@@ -59,8 +59,7 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
     const handleClickOpen = async (): Promise<void> => {
         setIsLoading(true)
         const response: any = await getActiveRide()
-        if (response[0].ride_id) {
-            console.log('running trip')
+        if (response?.[0]) {
             setOpenAlert(true)
         } else {
             setOpen(true)
@@ -83,6 +82,7 @@ const DialogSearch = ({ children }: DialogSearchProps): JSX.Element => {
             rider_id: params.get("id"),
             total_fare: parseInt(params.get("total_fare")!)
         })
+        setOpen(false)
     }
 
     return (

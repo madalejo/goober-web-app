@@ -12,7 +12,6 @@ const CancelCurrentRide = ({ride_id}: {ride_id: string}):JSX.Element => {
     const handleClick = async () => {
         setIsLoading(true)
         const response = await cancelRide(ride_id)
-        console.log(response)
         if (response) {
             setOpen(true)
         }
