@@ -3,6 +3,7 @@ import '@fontsource/roboto'
 import "./globals.css"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import { CssBaseline } from "@mui/material"
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter"
 
 export const metadata: Metadata = {
   title: "Goober",
@@ -17,17 +18,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CssBaseline />
-        <Grid 
-          container
-          sx={{
-            height: '100vh'
-          }}
-        >
-          <Grid xs={12}>
-            {children}
+        <AppRouterCacheProvider>
+          <CssBaseline />
+          <Grid 
+            container
+            sx={{
+              height: '100vh'
+            }}
+          >
+            <Grid xs={12}>
+              {children}
+            </Grid>
           </Grid>
-        </Grid>
+        </AppRouterCacheProvider>
         </body>
     </html>
   );
