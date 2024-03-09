@@ -57,7 +57,7 @@ const RideCard = ({
             if (payload.new.status === "Canceled") {
                 setRides([])
             } else {
-                setRides([payload.new as RideProps])
+                setRides([{...payload.new as RideProps, drivers: { first_name: "Chuck", last_name: "Norris"}}])
             }
         })
         .on('postgres_changes', {
