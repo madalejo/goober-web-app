@@ -1,9 +1,8 @@
 'use client'
+
 import { useEffect, useState } from "react"
-import { useSearchParams, useRouter, usePathname } from "next/navigation"
 
 import { APIProvider, Map, useMapsLibrary, useMap } from "@vis.gl/react-google-maps"
-import { Box, Card, CardContent, Typography } from "@mui/material"
 
 interface CardMapProps {
     pickup: string
