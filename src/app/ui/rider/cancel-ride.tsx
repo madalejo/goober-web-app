@@ -5,13 +5,19 @@ import { CardActions, Button, Snackbar, Alert, CircularProgress } from "@mui/mat
 
 import { cancelRide } from "@/app/lib/actions"
 
-const CancelCurrentRide = ({ride_id}: {ride_id: string}):JSX.Element => {
+const CancelCurrentRide = ({
+    ride_id, 
+    rider_id
+}: {
+    ride_id: string
+    rider_id: string
+}):JSX.Element => {
     const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const handleClick = async () => {
         setIsLoading(true)
-        const response = await cancelRide(ride_id)
+        const response = await cancelRide(ride_id, null, rider_id)
         if (response) {
             setOpen(true)
         }

@@ -24,7 +24,7 @@ import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty'
 import ExploreOffOutlinedIcon from '@mui/icons-material/ExploreOffOutlined'
 import RouteIcon from '@mui/icons-material/Route'
 
-import CardMap from "../card-map"
+import CardMap from "@/app/ui/card-map"
 import { cancelRide, acceptRide } from "@/app/lib/actions"
 
 interface ActiveRideProps {

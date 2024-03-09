@@ -1,14 +1,25 @@
 
-import { getActiveRide, currentLocation } from "@/app/lib/actions"
+import { getActiveRide, getOngoingRide } from "@/app/lib/actions"
 import RideCard from "@/app/ui/rider/ride-card"
 
 const CurrentRide = async () => {
     const activeRides = await getActiveRide()
+    const ongoingRide = await getOngoingRide()
 
     return (
-        <RideCard
-            activeRides={activeRides?.[0]}
-        />
+        <>
+            {
+                ongoingRide?.length !== 0 ? (
+                    <RideCard
+                        activeRides={ongoingRide || []}
+                    />
+                ) : (
+                    <RideCard
+                        activeRides={activeRides || []}
+                    />
+                )
+            }
+        </>
     )
 }
 

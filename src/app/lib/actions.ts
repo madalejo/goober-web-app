@@ -102,7 +102,7 @@ export const getAcceptedRide = async () => {
     return data
 }
 
-export const cancelRide = async (ride_id: string, driver_id?: string, rider_id?: string) => {
+export const cancelRide = async (ride_id: string, driver_id?: string | null, rider_id?: string | null) => {
     const { data, error } = await supabase
     .from('rides')
     .update({ 
@@ -131,6 +131,22 @@ export const acceptRide = async (ride_id: string, driver_id: string) => {
     .select()
 
     console.log(error)
+
+    return data
+}
+
+export const getOngoingRide = async () => {
+    const { data, error } = await supabase
+    .from('rides')
+    .select(`
+        *,
+        drivers (
+            first_name,
+            last_name
+        )
+    `)
+    .eq('status', 'Accepted')
+    .limit(1)
 
     return data
 }
