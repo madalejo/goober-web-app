@@ -18,3 +18,18 @@ export const navObj:AppNavigation[] = [
         icon: PersonIcon
     }
 ]
+
+export const driverNavOb: AppNavigation[] = [
+    {
+        label: "Home",
+        icon: HomeIcon,
+    },
+    {
+        label: "Earnings",
+        icon: ReceiptLongIcon,
+    },
+    {
+        label: "Profile",
+        icon: PersonIcon
+    }
+]
