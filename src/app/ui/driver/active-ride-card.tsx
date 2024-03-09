@@ -66,7 +66,7 @@ const ActiveRideCard = ({
 
     const handleCancel = async (ride_id: string) => {
         setIsLoading(true)
-        const response = await cancelRide(ride_id, "269b6f7c-65a5-4cb9-b85a-7d342ff591a9")
+        const response = await cancelRide(ride_id, 'driver_id' ,"269b6f7c-65a5-4cb9-b85a-7d342ff591a9")
         if (response) {
             setOpen(prevState => ({
                 ...prevState,

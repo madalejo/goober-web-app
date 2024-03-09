@@ -102,14 +102,13 @@ export const getAcceptedRide = async () => {
     return data
 }
 
-export const cancelRide = async (ride_id: string, driver_id?: string | null, rider_id?: string | null) => {
+export const cancelRide = async (ride_id: string, role: string, role_id: string | null) => {
     const { data, error } = await supabase
     .from('rides')
     .update({ 
         status: 'Canceled',
         canceled_at: now,
-        ...( driver_id ? { driver_id: driver_id } : {}),
-        ...( rider_id ? { rider_id: rider_id } : {})
+        [role]: role_id,
     })
     .eq('ride_id', ride_id)
     .select()

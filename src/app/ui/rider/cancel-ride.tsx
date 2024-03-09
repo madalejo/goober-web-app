@@ -17,7 +17,7 @@ const CancelCurrentRide = ({
 
     const handleClick = async () => {
         setIsLoading(true)
-        const response = await cancelRide(ride_id, null, rider_id)
+        const response = await cancelRide(ride_id, 'rider_id', rider_id)
         if (response) {
             setOpen(true)
         }
