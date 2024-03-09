@@ -1,6 +1,8 @@
 'use server'
 import { supabase } from "@/app/utils/supabase"
 
+const now = new Date()
+
 /*
 * Google Maps
 */
@@ -89,10 +91,42 @@ export const getActiveRide = async () => {
     return data
 }
 
-export const cancelRide = async (ride_id: string) => {
+export const getAcceptedRide = async () => {
     const { data, error } = await supabase
     .from('rides')
-    .update({ status: 'Canceled' })
+    .select()
+    .eq('status', 'Accepted')
+    .eq('driver_id', '269b6f7c-65a5-4cb9-b85a-7d342ff591a9')
+    .limit(1)
+
+    return data
+}
+
+export const cancelRide = async (ride_id: string, driver_id?: string, rider_id?: string) => {
+    const { data, error } = await supabase
+    .from('rides')
+    .update({ 
+        status: 'Canceled',
+        canceled_at: now,
+        ...( driver_id ? { driver_id: driver_id } : {}),
+        ...( rider_id ? { rider_id: rider_id } : {})
+    })
+    .eq('ride_id', ride_id)
+    .select()
+
+    console.log(error)
+
+    return data
+}
+
+export const acceptRide = async (ride_id: string, driver_id: string) => {
+    const { data, error } = await supabase
+    .from('rides')
+    .update({ 
+        status: 'Accepted',
+        accepted_at: now,
+        driver_id: driver_id 
+    })
     .eq('ride_id', ride_id)
     .select()
 

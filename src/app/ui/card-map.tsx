@@ -26,9 +26,6 @@ const CardMap = (trip: CardMapProps) => {
                 position: "relative"
             }}
         >
-        <APIProvider 
-            apiKey={process.env.NEXT_PUBLIC_GMAPS_TOKEN!}
-        >
             <Map
                 defaultCenter={position}
                 defaultZoom={9}
@@ -43,7 +40,6 @@ const CardMap = (trip: CardMapProps) => {
                     dropoff={trip.dropoff}
                 />
             </Map>
-        </APIProvider>
         </div>
     )
 }
