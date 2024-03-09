@@ -5,7 +5,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2"
 
 // Navigation Components
 import AppBar from "@/app/ui/rider/app-bar"
-import NavBar from "@/app/ui/rider/nav-bar"
+import NavBar from "@/app/ui/driver/nav-bar"
 
 const Layout = ({ children } : { children: ReactNode}): JSX.Element => {
 

@@ -1,11 +1,17 @@
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { FC } from "react";
+import { FC } from "react"
+
+import Grid from "@mui/material/Unstable_Grid2/Grid2"
 
 const Page: FC = (): JSX.Element => {
     return (
-        <>
-            Driver Page
-        </>
+        <Grid
+            container
+            spacing={4}
+        >
+            <Grid xs={12}>
+                Driver Page
+            </Grid>
+        </Grid>
     )
 }
 

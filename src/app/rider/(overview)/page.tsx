@@ -32,9 +32,9 @@ const Page: FC = ({
             </Grid>
             <Grid xs={12}>
                 <CurrentRideWrapper>
-                        <Suspense fallback={<CurrentRideSkeletong />}>
-                            <CurrentRide />
-                        </Suspense>
+                    <Suspense fallback={<CurrentRideSkeletong />}>
+                        <CurrentRide />
+                    </Suspense>
                 </CurrentRideWrapper>
             </Grid>
             <Grid xs={12}>
