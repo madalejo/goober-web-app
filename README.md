@@ -32,13 +32,13 @@ Next, create a local `.env.local` file and use the following secrets:
 
 ```bash
 # Google Maps token
-NEXT_PUBLIC_GMAPS_TOKEN=AIzaSyAW7KlWJLXSxp7HZJ-0MiINIsw55npWtMg
-NEXT_PUBLIC_GMAPS_BASEURL=https://maps.googleapis.com/maps/api
-NEXT_PUBLIC_GMAP_ID=11c28e91d8d28ff8
+NEXT_PUBLIC_GMAPS_TOKEN=
+NEXT_PUBLIC_GMAPS_BASEURL=
+NEXT_PUBLIC_GMAP_ID=
 
 # Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://ewwoqqrpskxeqslvxcoo.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3d29xcXJwc2t4ZXFzbHZ4Y29vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkxMzE5NzQsImV4cCI6MjAyNDcwNzk3NH0.Tap1Sv9MLufKpzeRn0K3Xv_eudWeSI0GkxcyGIG2E3c
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
 ## About this project
